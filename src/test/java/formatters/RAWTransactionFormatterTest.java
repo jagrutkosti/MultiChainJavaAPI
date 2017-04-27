@@ -5,7 +5,7 @@
  * https://github.com/SimplyUb/MultiChainJavaAPI/blob/master/LICENSE
  *
  */
-package multichain.test.object.formatters;
+package formatters;
 
 import multichain.object.TransactionRAW;
 import multichain.object.formatters.RAWTransactionFormatter;

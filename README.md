@@ -43,7 +43,7 @@ Next versions will decide to integrate (or not) theses commands.
 The package `multichain.command` is the essential of the project.
 The package contains Java commands to call.
 
-Examples of command calls can be found in `multichain.test.command`.
+Examples of command calls can be found in `command`.
 
 A simple example to get addresses :
 ```
@@ -67,7 +67,7 @@ The package `multichain.object` contains Java objects which can be used to call 
 
 The package contains `formatters` with technical classes used to format Json to Java using [Gson API](https://github.com/google/gson).
 
-#### multichain.test.object.formatters
+#### formatters
 The package `multichain.test` contains Java unit test.
 Test are written with `main()` function to be executed whatever IDE or system used.
 
