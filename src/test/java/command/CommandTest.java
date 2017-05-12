@@ -64,7 +64,7 @@ public class CommandTest {
 
 	private static void testListStreams() {
 		List<Stream> allAvailableStreams = null;
-		String streamNames = "unpublishedwork,teststream";
+		String streamNames = "unpublishedwork";
 		try {
 			allAvailableStreams = StreamCommand.listStreams(streamNames);
 			for (Stream stream : allAvailableStreams) {
@@ -169,7 +169,7 @@ public class CommandTest {
 		ChainCommand.initializeChain("plagchain");
 		//testgetAddresses();
 		//testCreateStream();
-		//testListStreams();
+		testListStreams();
 		//testPublishStream();
 		//testSubscribe();
 		//testUnsubscribe();
@@ -178,7 +178,7 @@ public class CommandTest {
 		//testListStreamKeys();
 		//testListStreamItems();
 		//testListStreamPublisherItems();
-		testListStreamPublishers();
+		//testListStreamPublishers();
 		System.out.println("--- End of CommandTest ---");
 	}
 

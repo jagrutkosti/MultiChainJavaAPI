@@ -24,6 +24,55 @@ public class StreamItem {
     Integer vout;
     Boolean valid;
     Long time;
+
+    public String getBlockhash() {
+        return blockhash;
+    }
+
+    public void setBlockhash(String blockhash) {
+        this.blockhash = blockhash;
+    }
+
+    public Integer getBlockindex() {
+        return blockindex;
+    }
+
+    public void setBlockindex(Integer blockindex) {
+        this.blockindex = blockindex;
+    }
+
+    public Integer getVout() {
+        return vout;
+    }
+
+    public void setVout(Integer vout) {
+        this.vout = vout;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    public Long getTimereceived() {
+        return timereceived;
+    }
+
+    public void setTimereceived(Long timereceived) {
+        this.timereceived = timereceived;
+    }
+
     Long timereceived;
 
     public List<String> getPublishers() {
