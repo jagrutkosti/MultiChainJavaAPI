@@ -9,6 +9,7 @@ package multichain.command.builders;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import multichain.command.MultichainException;
+import multichain.object.Stream;
 
 /**
  * @author Ub - H. MARTEAU
@@ -138,11 +140,11 @@ abstract class QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected static String execute(CommandEnum command, String... parameters) throws MultichainException {
-		BufferedReader stdError = null;
+
 		if (!CHAIN.equals("")) {
 			Runtime rt = Runtime.getRuntime();
 			Process pr;
-			String result = "";
+
 			try {
 				if (parameters.length > 0) {
 					String params = "";
@@ -153,34 +155,22 @@ abstract class QueryBuilderCommon {
 				} else {
 					pr = rt.exec("multichain-cli " + CHAIN + " " + command.toString().toLowerCase());
 				}
+				//Get the output from both error stream and output stream
+				StreamGobbler errorGobbler = new StreamGobbler(pr.getErrorStream());
+				StreamGobbler outputGobbler = new StreamGobbler(pr.getInputStream());
 
-				BufferedReader stdInput = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+				errorGobbler.start();
+				outputGobbler.start();
 
-				stdError = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+				pr.waitFor();
 
-				// read the output from the command
-				String s;
-				while ((s = stdInput.readLine()) != null) {
-					result = result.concat(s + "\n");
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				if(outputGobbler.output.length() > 0)
+					return outputGobbler.output;
+
+				return errorGobbler.output;
+			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
-			}
-
-			if (!result.isEmpty() && !result.equalsIgnoreCase("")) {
-				return result;
-			} else {
-				// read any errors from the attempted command
-				String s;
-				try {
-					while ((s = stdError.readLine()) != null) {
-						result = result.concat(s + "\n");
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				throw new MultichainException(null, result);
+				return "";
 			}
 		} else {
 			return "ERROR, CHAIN NAME ARE EMPTY !";
@@ -291,5 +281,24 @@ abstract class QueryBuilderCommon {
 		CHAIN = cHAIN;
 	}
 
+	static class StreamGobbler extends Thread {
+		private InputStream is;
+		private String output = "";
+
+		StreamGobbler(InputStream is) {
+			this.is = is;
+		}
+
+		public void run() {
+			try {
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				String line;
+				while ( (line = br.readLine()) != null)
+					output = output.concat(line + "\n");
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+	}
 
 }
