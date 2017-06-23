@@ -163,7 +163,7 @@ abstract class QueryBuilderCommon {
 				outputGobbler.start();
 
 				pr.waitFor();
-
+				pr.getOutputStream().close();
 				if(outputGobbler.output.length() > 0)
 					return outputGobbler.output;
 
