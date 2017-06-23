@@ -281,6 +281,9 @@ abstract class QueryBuilderCommon {
 		CHAIN = cHAIN;
 	}
 
+	/**
+	 * A stream gobbler class to run in different thread to read the output of the command line execution
+	 */
 	static class StreamGobbler extends Thread {
 		private InputStream is;
 		private String output = "";
@@ -290,8 +293,7 @@ abstract class QueryBuilderCommon {
 		}
 
 		public void run() {
-			try {
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			try(BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
 				String line;
 				while ( (line = br.readLine()) != null)
 					output = output.concat(line + "\n");
