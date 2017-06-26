@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.StringJoiner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -165,9 +166,9 @@ abstract class QueryBuilderCommon {
 				pr.waitFor();
 				pr.getOutputStream().close();
 				if(outputGobbler.output.length() > 0)
-					return outputGobbler.output;
+					return outputGobbler.output.toString();
 
-				return errorGobbler.output;
+				return errorGobbler.output.toString();
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 				return "";
@@ -286,7 +287,7 @@ abstract class QueryBuilderCommon {
 	 */
 	static class StreamGobbler extends Thread {
 		private InputStream is;
-		private String output = "";
+		private StringJoiner output = new StringJoiner("\n");
 
 		StreamGobbler(InputStream is) {
 			this.is = is;
@@ -296,7 +297,7 @@ abstract class QueryBuilderCommon {
 			try(BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
 				String line;
 				while ( (line = br.readLine()) != null)
-					output = output.concat(line + "\n");
+					output.add(line);
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
