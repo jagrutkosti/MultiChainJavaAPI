@@ -207,6 +207,18 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	}
 
 	/**
+	 * Returns list of permissions for specified addresses in the mentioned stream
+	 * @param streamPermission in the form of streamName.admin,write or streamName.*
+	 * @param address the list of address for which to fetch permission. * for all
+	 * @param verbose true - for detailed info, otherwise false
+	 * @return String containing the output of listpermissions command
+	 * @throws MultichainException
+	 */
+	protected static String executeListPermissions(String streamPermission, String address, boolean verbose) throws MultichainException {
+		return execute(CommandEnum.LISTPERMISSIONS, streamPermission, address, formatJson(verbose));
+	}
+
+	/**
 	 * Revoke permissions to addresses
 	 *
 	 * revoke "address(es)" "permission(s)" ( native-amount "comment" "comment-to" )

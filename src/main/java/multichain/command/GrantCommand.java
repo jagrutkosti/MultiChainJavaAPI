@@ -12,6 +12,8 @@ import multichain.object.Address;
 import multichain.object.Permission;
 import multichain.object.formatters.GrantFormatter;
 
+import java.util.List;
+
 /**
  * @author Ub - H. MARTEAU
  * @version 1.0
@@ -320,6 +322,18 @@ public class GrantCommand extends QueryBuilderGrant {
 		String stringPermission = executeListPermissions(0, null, false);
 
 		return GrantFormatter.formatPermission(stringPermission);
+	}
+
+	/**
+	 * Returns list of all permissions for a given address in the stream
+	 * @param streamPermission the stream permission query. E.g. streamName.write,admin or streamName.* for all
+	 * @param address the address for which to fetch the permission
+	 * @return List of permissions for the mentioned address in the stream
+	 * @throws MultichainException
+	 */
+	public static List<Permission> listPermissionForStreamAndAddress(String streamPermission, String address) throws MultichainException {
+		String permissions = executeListPermissions(streamPermission, address, true);
+		return GrantFormatter.formatPermissionList(permissions);
 	}
 
 	/**
