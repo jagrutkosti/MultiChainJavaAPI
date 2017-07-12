@@ -174,6 +174,23 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	}
 
 	/**
+	 * Grants permissions to addresses From an address
+	 * grantfrom "from-address"  "to-address(es)"  "permission(s)" ( native-amount "comment" "comment-to" startblock endblock )
+	 *
+	 * @param addressFrom address from which to grant permission (should have admin rights)
+	 * @param address address to which the permission should be granted
+	 * @param assetPermission asset permission in the format: assetName.permission e.g. rootStream.write. Possible values are write, admin and issue for assets
+	 * @return transaction ID
+	 * @throws MultichainException
+	 */
+	protected static String executeGrantFrom(String addressFrom, String address, String assetPermission) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("addressFrom", addressFrom);
+		MultichainTestParameter.isNotNullOrEmpty("address", address);
+		MultichainTestParameter.isNotNullOrEmpty("assetPermission", assetPermission);
+
+		return execute(CommandEnum.GRANTFROM, addressFrom, address, assetPermission);
+	}
+	/**
 	 *
 	 * listpermissions ("permission(s)" "address" verbose)
 	 *
@@ -215,7 +232,10 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected static String executeListPermissions(String streamPermission, String address, boolean verbose) throws MultichainException {
-		return execute(CommandEnum.LISTPERMISSIONS, streamPermission, address, formatJson(verbose));
+		if (address != null && !address.isEmpty())
+			return execute(CommandEnum.LISTPERMISSIONS, streamPermission, address, formatJson(verbose));
+		else
+			return execute(CommandEnum.LISTPERMISSIONS, streamPermission);
 	}
 
 	/**

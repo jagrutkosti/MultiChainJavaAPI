@@ -172,6 +172,20 @@ public class GrantCommand extends QueryBuilderGrant {
 	}
 
 	/**
+	 * Grants permissions to addresses From an address
+	 * grantfrom "from-address"  "to-address(es)"  "permission(s)" ( native-amount "comment" "comment-to" startblock endblock )
+	 *
+	 * @param addressFrom address from which to grant permission (should have admin rights)
+	 * @param address address to which the permission should be granted
+	 * @param assetPermission asset permission in the format: assetName.permission e.g. rootStream.write. Possible values are write, admin and issue for assets
+	 * @return transaction ID
+	 * @throws MultichainException
+	 */
+	public static String grantFrom(String addressFrom, String address, String assetPermission) throws MultichainException {
+		return executeGrantFrom(addressFrom, address, assetPermission);
+	}
+
+	/**
 	 * listpermissions ("permission(s)" "address" verbose)
 	 *
 	 * Returns list of addresses having one of the specified permissions
