@@ -132,6 +132,22 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 
 	/**
 	 * Grants permissions to addresses From an address
+	 * grantfrom "from-address"  "to-address(es)"  "permission(s)" ( native-amount "comment" "comment-to" startblock endblock )
+	 *
+	 * @param address address to which the permission should be granted
+	 * @param assetPermission asset permission in the format: assetName.permission e.g. rootStream.write. Possible values are write, admin and issue for assets
+	 * @return transaction ID
+	 * @throws MultichainException
+	 */
+	protected static String executeGrant(String address, String assetPermission) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("address", address);
+		MultichainTestParameter.isNotNullOrEmpty("assetPermission", assetPermission);
+
+		return execute(CommandEnum.GRANT, address, assetPermission);
+	}
+
+	/**
+	 * Grants permissions to addresses From an address
 	 *
 	 * grantfrom "from-address"  "to-address(es)"  "permission(s)" ( native-amount "comment" "comment-to" startblock endblock )
 	 *
@@ -190,6 +206,7 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 
 		return execute(CommandEnum.GRANTFROM, addressFrom, address, assetPermission);
 	}
+
 	/**
 	 *
 	 * listpermissions ("permission(s)" "address" verbose)
