@@ -10,6 +10,7 @@ package command;
 import java.util.List;
 
 import multichain.command.*;
+import multichain.object.Address;
 import multichain.object.Stream;
 import multichain.object.StreamItem;
 import multichain.object.StreamKeyPublisherInfo;
@@ -159,6 +160,16 @@ public class CommandTest {
 			e.printStackTrace();
 		}
 	}
+
+	private static void testGetNewAddress() {
+		try {
+			Address addr = AddressCommand.getNewAddress();
+			System.out.println(addr.getAddress());
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * @param args
 	 */
@@ -169,8 +180,8 @@ public class CommandTest {
 		ChainCommand.initializeChain("plagchain");
 		//testgetAddresses();
 		//testCreateStream();
-		//testListStreams();
-		testPublishStream();
+		testListStreams();
+		//testPublishStream();
 		//testSubscribe();
 		//testUnsubscribe();
 		//testGetStreamItem();
@@ -179,6 +190,7 @@ public class CommandTest {
 		//testListStreamItems();
 		//testListStreamPublisherItems();
 		//testListStreamPublishers();
+		//testGetNewAddress();
 		System.out.println("--- End of CommandTest ---");
 	}
 

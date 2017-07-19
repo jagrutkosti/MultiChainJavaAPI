@@ -164,6 +164,10 @@ abstract class QueryBuilderCommon {
 				outputGobbler.start();
 
 				pr.waitFor();
+
+				errorGobbler.join();
+				outputGobbler.join();
+
 				pr.getOutputStream().close();
 				if(outputGobbler.output.length() > 0)
 					return outputGobbler.output.toString();
@@ -258,12 +262,12 @@ abstract class QueryBuilderCommon {
 			valuesParam += "]";
 			return valuesParam;
 		} else {
-			String valuesParam = "'[";
+			String valuesParam = "[";
 			for(int j = 0; j < values.length; j++) {
 				valuesParam += (j != values.length - 1) ?  ("\"" + values[j] + "\",") :
 						("\"" + values[j] + "\"");
 			}
-			valuesParam += "]'";
+			valuesParam += "]";
 			return valuesParam;
 		}
 	}

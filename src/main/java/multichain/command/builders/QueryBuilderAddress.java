@@ -244,7 +244,7 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 */
 	protected static String executeValidateAddress(String address) throws MultichainException, MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		return execute(CommandEnum.VALIDATEADDRESS, formatJson(address));
+		return execute(CommandEnum.VALIDATEADDRESS, address);
 	}
 
 
