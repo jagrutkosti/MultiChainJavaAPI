@@ -364,6 +364,19 @@ public class GrantCommand extends QueryBuilderGrant {
 	}
 
 	/**
+	 * {@link #listPermissions(byte)} with permissions in int
+	 * @param permissions byte
+	 * @return a list of all permissions currently granted to addresses.
+	 * @throws MultichainException
+	 */
+	public static List<Permission> listPermissionsList(byte permissions) throws MultichainException {
+		String stringPermission = executeListPermissions(permissions, null, false);
+
+		return GrantFormatter.formatPermissionList(stringPermission);
+	}
+
+
+	/**
 	 * Revoke permissions to addresses
 	 *
 	 * revoke "address(es)" "permission(s)" ( native-amount "comment" "comment-to" )
