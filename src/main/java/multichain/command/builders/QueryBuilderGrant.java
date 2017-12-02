@@ -232,9 +232,9 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 		if (permissionsFormated == null || "".equals(permissionsFormated)) {
 			listPermissions =  execute(CommandEnum.LISTPERMISSIONS, "all");
 		} else if (address == null || "".equals(address)) {
-			listPermissions =  execute(CommandEnum.LISTPERMISSIONS, "all", formatJson(permissionsFormated));
+			listPermissions =  execute(CommandEnum.LISTPERMISSIONS, permissionsFormated);
 		} else {
-			listPermissions =  execute(CommandEnum.LISTPERMISSIONS, "all", formatJson(permissionsFormated), formatJson(address), formatJson(verbose));
+			listPermissions =  execute(CommandEnum.LISTPERMISSIONS, permissionsFormated, formatJson(address), formatJson(verbose));
 		}
 
 		return listPermissions;

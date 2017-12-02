@@ -10,10 +10,7 @@ package command;
 import java.util.List;
 
 import multichain.command.*;
-import multichain.object.Address;
-import multichain.object.Stream;
-import multichain.object.StreamItem;
-import multichain.object.StreamKeyPublisherInfo;
+import multichain.object.*;
 
 /**
  * @author Ub - H. MARTEAU
@@ -161,6 +158,14 @@ public class CommandTest {
 		}
 	}
 
+	private static void testListPermissions() {
+		try {
+			List<Permission> addressesWithMinePermission = GrantCommand.listPermissionsList((byte)0b0010000);
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static void testGetNewAddress() {
 		try {
 			Address addr = AddressCommand.getNewAddress();
@@ -180,7 +185,8 @@ public class CommandTest {
 		ChainCommand.initializeChain("plagchain");
 		//testgetAddresses();
 		//testCreateStream();
-		testListStreams();
+		//testListStreams();
+		testListPermissions();
 		//testPublishStream();
 		//testSubscribe();
 		//testUnsubscribe();
