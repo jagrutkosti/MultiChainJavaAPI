@@ -40,7 +40,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @throws MultichainException
 	 *
 	 */
-	protected static List<BalanceAsset> getAssetBalances() throws MultichainException {
+	public static List<BalanceAsset> getAssetBalances() throws MultichainException {
 		List<BalanceAsset> listBalanceAsset = new ArrayList<BalanceAsset>();
 
 		String stringBalanceAsset = executeGetAssetBalances();
@@ -91,7 +91,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected static String issue(String address, String assetName, int quantity, float unit) throws MultichainException {
+	public static String issue(String address, String assetName, int quantity, float unit) throws MultichainException {
 		return executeIssue(address, assetName, quantity, unit);
 	}
 
@@ -136,7 +136,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected static String issue(String address, List<AssetParams> assets, int quantity, float unit) throws MultichainException {
+	public static String issue(String address, List<AssetParams> assets, int quantity, float unit) throws MultichainException {
 		return executeIssue(address, assets, quantity, unit);
 	}
 
@@ -182,7 +182,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected static String issueFrom(String fromAddress, String toAddress, String assetName, int quantity, float unit) throws MultichainException {
+	public static String issueFrom(String fromAddress, String toAddress, String assetName, int quantity, float unit) throws MultichainException {
 		return executeIssueFrom(fromAddress, toAddress, assetName, quantity, unit);
 	}
 
@@ -228,7 +228,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected static String issueFrom(String fromAddress, String toAddress, List<AssetParams> assets, int quantity, float unit) throws MultichainException {
+	public static String issueFrom(String fromAddress, String toAddress, List<AssetParams> assets, int quantity, float unit) throws MultichainException {
 		return executeIssueFrom(fromAddress, toAddress, assets, quantity, unit);
 	}
 
@@ -259,7 +259,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected static String issueMore(String address, String assetName, int quantity) throws MultichainException{
+	public static String issueMore(String address, String assetName, int quantity) throws MultichainException{
 		return executeIssueMore(address, assetName, quantity);
 	}
 
@@ -293,7 +293,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected static String issueMoreFrom(String fromAddress, String toAddress, String assetName, int quantity) throws MultichainException{
+	public static String issueMoreFrom(String fromAddress, String toAddress, String assetName, int quantity) throws MultichainException{
 		return executeIssueMoreFrom(fromAddress, toAddress, assetName, quantity);
 	}
 
@@ -312,7 +312,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 *         asset name, ref or issuance txid
 	 * @throws MultichainException
 	 */
-	protected static List<BalanceAsset> listAssets(String asset, boolean verbose) throws MultichainException {
+	public static List<BalanceAsset> listAssets(String asset, boolean verbose) throws MultichainException {
 			List<BalanceAsset> listBalanceAsset = new ArrayList<BalanceAsset>();
 
 			String stringBalanceAsset = executeListAssets(asset, verbose);
@@ -351,7 +351,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected static String sendAssetFrom(String fromAddress, String toAddress, String assetName, float quantity) throws MultichainException {
+	public static String sendAssetFrom(String fromAddress, String toAddress, String assetName, float quantity) throws MultichainException {
 		return executeSendAssetFrom(fromAddress, toAddress, assetName, quantity);
 	}
 
