@@ -7,6 +7,7 @@
  */
 package multichain.object.formatters;
 
+import multichain.object.SignRawTransactionOut;
 import multichain.object.TransactionRAW;
 
 import com.google.gson.Gson;
@@ -23,5 +24,10 @@ public class RAWTransactionFormatter {
 		final TransactionRAW transactionRAW = gson.fromJson(stringTransactionRAW, TransactionRAW.class);
 
 		return transactionRAW;
+	}
+
+	public final static SignRawTransactionOut formatSignTransactionOut(String hexString) {
+		final Gson gson = new GsonBuilder().create();
+		return gson.fromJson(hexString, SignRawTransactionOut.class);
 	}
 }

@@ -185,6 +185,19 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	}
 
 	/**
+	 * Create a raw transaction from specified address
+	 * @param blockchainAddress the from address
+	 * @param asset if any asset is being transferred, the raw form i.e. '{"1...adfafdsaf":{"asset0":2000}}'
+	 * @param streamItem if publishing to a stream, the raw form i.e.
+	 *                      '[{"for":"stream0","key":"key0","data":"45787465726e616c20697320736166657374"}]'
+	 * @return hexidecimal blob as String
+	 * @throws MultichainException
+	 */
+	protected static String executeCreateRawSendFrom(String blockchainAddress, String asset, String streamItem) throws MultichainException {
+		return execute(CommandEnum.CREATERAWSENDFROM, blockchainAddress, asset, streamItem);
+	}
+
+	/**
 	 *
 	 * decoderawtransaction "hexstring"
 	 *
@@ -402,7 +415,20 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 */
 	protected static String executeSignRawTransaction(String hexString) throws MultichainException{
 		MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
-		return execute(CommandEnum.SIGNTAWTRANSACTION, formatJson(hexString));
+		return execute(CommandEnum.SIGNRAWTRANSACTION, formatJson(hexString));
+	}
+
+	/**
+	 * Sign the transaction hex string using specified private key to get bigger hexadecimal blob output
+	 * @param hexString the hex string to sign
+	 * @param privKey the key with which to sign
+	 * @return String containing bigger blob in {"hex": "adfadf", "complete": true} format
+	 * @throws MultichainException
+	 */
+	protected static String executeSignRawTransactionWithPrivKey(String hexString, String privKey) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
+		MultichainTestParameter.isNotNullOrEmpty("privKey", privKey);
+		return execute(CommandEnum.SIGNRAWTRANSACTION, formatJson(hexString),"[]" ,formatJson(privKey));
 	}
 
 }

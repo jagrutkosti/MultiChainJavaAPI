@@ -10,8 +10,10 @@ package multichain.command;
 import java.util.List;
 
 import multichain.command.builders.QueryBuilderRAWTransaction;
+import multichain.command.tools.MultichainTestParameter;
 import multichain.object.Address;
 import multichain.object.AddressBalanceAsset;
+import multichain.object.SignRawTransactionOut;
 import multichain.object.TransactionRAW;
 import multichain.object.formatters.RAWTransactionFormatter;
 import multichain.object.queryobjects.TxIdVout;
@@ -163,15 +165,27 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * Result:
 	 * "transaction"            (string) hex string of the transaction
 	 *
-	 * @param txids
-	 * @param vouts
-	 * @param addresses
-	 * @param amounts
 	 * @return
 	 * @throws MultichainException
 	 */
 	public static String createRawTransaction(List<TxIdVout> inputs, List<AddressBalanceAsset> addessAssets) throws MultichainException {
 		return executeCreateRawTransaction(inputs, addessAssets);
+	}
+
+	/**
+	 * Create a raw transaction from specified address
+	 * @param blockchainAddress the from address
+	 * @param asset if any asset is being transferred, the raw form i.e. '{"1...adfafdsaf":{"asset0":2000}}'
+	 * @param streamItem if publishing to a stream, the raw form i.e.
+	 *                      '[{"for":"stream0","key":"key0","data":"45787465726e616c20697320736166657374"}]'
+	 * @return hexidecimal blob as String
+	 * @throws MultichainException
+	 */
+	public static String createRawSendFrom(String blockchainAddress, String asset, String streamItem) throws MultichainException {
+		if(asset == null || asset.isEmpty()) {
+			asset = "'{}'";
+		}
+		return executeCreateRawSendFrom(blockchainAddress, asset, streamItem);
 	}
 
 	/**
@@ -419,5 +433,17 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 */
 	public static String signRawTransaction(String hexString) throws MultichainException {
 		return executeSignRawTransaction(hexString);
+	}
+
+	/**
+	 * Sign the transaction hex string using specified private key to get bigger hexadecimal blob output
+	 * @param hexString the hex string to sign
+	 * @param privKey the key with which to sign
+	 * @return SignRawTransactionOut object
+	 * @throws MultichainException
+	 */
+	public static SignRawTransactionOut signRawTransactionWithPrivKey(String hexString, String privKey) throws MultichainException {
+		String hexOut = executeSignRawTransactionWithPrivKey(hexString, privKey);
+		return RAWTransactionFormatter.formatSignTransactionOut(hexOut);
 	}
 }
