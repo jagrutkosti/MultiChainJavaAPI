@@ -13,6 +13,7 @@ import java.util.List;
 import multichain.command.builders.QueryBuilderAddress;
 import multichain.object.Address;
 import multichain.object.BalanceAsset;
+import multichain.object.KeyPair;
 import multichain.object.MultiBalance;
 import multichain.object.formatters.AddressFormatter;
 import multichain.object.formatters.BalanceFormatter;
@@ -335,5 +336,14 @@ public class AddressCommand extends QueryBuilderAddress {
 		return address;
 	}
 
+	/**
+	 * Generate blockchian address and corresponding public and private key. Used for external key management.
+	 * @return KeyPair object with data
+	 * @throws MultichainException
+	 */
+	public static KeyPair createKeyPairs() throws MultichainException {
+		String keyPair = executeCreateKeyPairs();
+		return AddressFormatter.formatKeyPair(keyPair);
+	}
 
 }

@@ -15,6 +15,7 @@ import multichain.object.Address;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import multichain.object.KeyPair;
 
 /**
  * @author Ub - H. MARTEAU
@@ -45,5 +46,10 @@ public class AddressFormatter {
 		final List<Address> addresses = gson.fromJson(stringAddresses, listType);
 
 		return addresses;
+	}
+
+	public final static KeyPair formatKeyPair(String keyPair) {
+		final Gson gson = new GsonBuilder().create();
+		return gson.fromJson(keyPair, KeyPair.class);
 	}
 }

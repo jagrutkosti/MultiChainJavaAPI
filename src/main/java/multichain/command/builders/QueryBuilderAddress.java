@@ -247,6 +247,17 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 		return execute(CommandEnum.VALIDATEADDRESS, address);
 	}
 
-
+	/**
+	 * Generates a blockchain address, corresponding public and private keys
+	 * @return [{
+	 *     address:
+	 *     pubkey:
+	 *     privkey:
+	 * }]
+	 * @throws MultichainException
+	 */
+	protected static String executeCreateKeyPairs() throws MultichainException {
+		return execute(CommandEnum.CREATEKEYPAIRS);
+	}
 
 }
