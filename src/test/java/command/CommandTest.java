@@ -175,6 +175,14 @@ public class CommandTest {
 		}
 	}
 
+	private static void testImportAddress() {
+		try {
+			AddressCommand.importAddress("1aBwCuDVmpnjJxfueENvVZwjC212DvGUmjdyBG", "", false);
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * @param args
 	 */
@@ -186,7 +194,7 @@ public class CommandTest {
 		//testgetAddresses();
 		//testCreateStream();
 		//testListStreams();
-		testListPermissions();
+		//testListPermissions();
 		//testPublishStream();
 		//testSubscribe();
 		//testUnsubscribe();
@@ -197,6 +205,7 @@ public class CommandTest {
 		//testListStreamPublisherItems();
 		//testListStreamPublishers();
 		//testGetNewAddress();
+		testImportAddress();
 		System.out.println("--- End of CommandTest ---");
 	}
 

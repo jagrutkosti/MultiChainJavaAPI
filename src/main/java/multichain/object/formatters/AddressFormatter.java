@@ -50,6 +50,8 @@ public class AddressFormatter {
 
 	public final static KeyPair formatKeyPair(String keyPair) {
 		final Gson gson = new GsonBuilder().create();
-		return gson.fromJson(keyPair, KeyPair.class);
+        Type listType = new TypeToken<List<KeyPair>>(){}.getType();
+        List<KeyPair> generatedKeyPairsInArray = gson.fromJson(keyPair, listType);
+		return generatedKeyPairsInArray.get(0);
 	}
 }

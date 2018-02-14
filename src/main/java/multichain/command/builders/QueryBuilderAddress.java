@@ -213,7 +213,7 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 */
 	protected static String executeImportAddress(String address, String label, boolean rescan) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		return execute(CommandEnum.IMPORTADDRESS, formatJson(address), formatJson(label), formatJson(rescan));
+		return execute(CommandEnum.IMPORTADDRESS, address, formatJson(label), formatJson(rescan));
 	}
 
 	/**
