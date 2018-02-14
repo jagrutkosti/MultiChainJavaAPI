@@ -162,7 +162,7 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return Balances
 	 */
 	protected static String executeGetMultiBalances(String[] addresses)  throws MultichainException {
-		return execute(CommandEnum.GETMULTIBALANCES, formatJson(addresses));
+		return execute(CommandEnum.GETMULTIBALANCES, addresses);
 	}
 
 

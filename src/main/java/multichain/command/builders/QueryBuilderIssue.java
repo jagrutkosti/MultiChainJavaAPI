@@ -389,7 +389,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 			throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
-		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
+		//MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
 		return execute(CommandEnum.SENDASSETFROM, formatJson(fromAddress), formatJson(toAddress), formatJson(assetName), formatJson(quantity));
 	}
