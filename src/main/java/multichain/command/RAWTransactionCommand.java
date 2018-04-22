@@ -7,7 +7,9 @@
  */
 package multichain.command;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import multichain.command.builders.QueryBuilderRAWTransaction;
 import multichain.command.tools.MultichainTestParameter;
@@ -181,9 +183,9 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return hexidecimal blob as String
 	 * @throws MultichainException
 	 */
-	public static String createRawSendFrom(String blockchainAddress, String asset, String streamItem) throws MultichainException {
+	public static String createRawSendFrom(String blockchainAddress, String asset, Map<String, Object> streamItem) throws MultichainException {
 		if(asset == null || asset.isEmpty()) {
-			asset = "'{}'";
+			asset = "{}";
 		}
 		return executeCreateRawSendFrom(blockchainAddress, asset, streamItem);
 	}

@@ -7,7 +7,10 @@
  */
 package multichain.command.builders;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import multichain.command.MultichainException;
 import multichain.command.tools.MultichainTestParameter;
@@ -193,8 +196,10 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return hexidecimal blob as String
 	 * @throws MultichainException
 	 */
-	protected static String executeCreateRawSendFrom(String blockchainAddress, String asset, String streamItem) throws MultichainException {
-		return execute(CommandEnum.CREATERAWSENDFROM, blockchainAddress, asset, streamItem);
+	protected static String executeCreateRawSendFrom(String blockchainAddress, String asset, Map<String, Object> streamItem) throws MultichainException {
+		String streamItemAsJson = formatJson(streamItem);
+		String streamItemAsArray = "[" + streamItemAsJson +"]";
+		return execute(CommandEnum.CREATERAWSENDFROM, blockchainAddress, asset, streamItemAsArray);
 	}
 
 	/**
@@ -361,7 +366,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 */
 	protected static String executeSendRawTransaction(String hexString) throws MultichainException{
 		MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
-		return execute(CommandEnum.SENDRAWTRANSACTION, formatJson(hexString));
+		return execute(CommandEnum.SENDRAWTRANSACTION, hexString);
 	}
 
 
@@ -428,7 +433,9 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	protected static String executeSignRawTransactionWithPrivKey(String hexString, String privKey) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
 		MultichainTestParameter.isNotNullOrEmpty("privKey", privKey);
-		return execute(CommandEnum.SIGNRAWTRANSACTION, formatJson(hexString),"[]" ,formatJson(privKey));
+		Object privKeyAsObj = privKey;
+		privKey = "[" + formatJson(privKeyAsObj) + "]";
+		return execute(CommandEnum.SIGNRAWTRANSACTION, hexString,"[]" ,privKey);
 	}
 
 }
