@@ -355,6 +355,10 @@ public class IssueCommand extends QueryBuilderIssue {
 		return executeSendAssetFrom(fromAddress, toAddress, assetName, quantity);
 	}
 
+	public static String sendFrom(String fromAddresss, String toAddress, String quantity) throws MultichainException {
+		return executeSendFrom(fromAddresss, toAddress, quantity);
+	}
+
 	/**
 	 * Sends assets to address, returning the txid.
 	 *

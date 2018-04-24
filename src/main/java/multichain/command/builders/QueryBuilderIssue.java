@@ -389,9 +389,26 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 			throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
-		//MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
-		return execute(CommandEnum.SENDASSETFROM, formatJson(fromAddress), formatJson(toAddress), formatJson(assetName), formatJson(quantity));
+		MultichainTestParameter.isNotNull("assetName", assetName);
+		if(assetName.isEmpty())
+			assetName = "\"\"";
+		return execute(CommandEnum.SENDASSETFROM, fromAddress, toAddress, assetName, formatJson(quantity));
+	}
+
+	/**
+	 * Send native currency to an address from the specified address
+	 * @param fromAddress send from
+	 * @param toAddress send to
+	 * @param quantity how much native currency in decimal format e.g. 0.005
+	 * @return Txid
+	 * @throws MultichainException
+	 */
+	protected static String executeSendFrom(String fromAddress, String toAddress, String quantity) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
+		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
+		MultichainTestParameter.isNotNullOrEmpty("quantity", quantity);
+		return execute(CommandEnum.SENDFROM, fromAddress, toAddress, quantity);
 	}
 
 	/**

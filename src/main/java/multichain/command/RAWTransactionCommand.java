@@ -183,10 +183,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return hexidecimal blob as String
 	 * @throws MultichainException
 	 */
-	public static String createRawSendFrom(String blockchainAddress, String asset, Map<String, Object> streamItem) throws MultichainException {
-		if(asset == null || asset.isEmpty()) {
-			asset = "{}";
-		}
+	public static String createRawSendFrom(String blockchainAddress, Map<String, Object> asset, Map<String, Object> streamItem) throws MultichainException {
 		return executeCreateRawSendFrom(blockchainAddress, asset, streamItem);
 	}
 

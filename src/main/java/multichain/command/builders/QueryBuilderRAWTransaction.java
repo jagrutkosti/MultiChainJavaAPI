@@ -196,10 +196,16 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return hexidecimal blob as String
 	 * @throws MultichainException
 	 */
-	protected static String executeCreateRawSendFrom(String blockchainAddress, String asset, Map<String, Object> streamItem) throws MultichainException {
-		String streamItemAsJson = formatJson(streamItem);
-		String streamItemAsArray = "[" + streamItemAsJson +"]";
-		return execute(CommandEnum.CREATERAWSENDFROM, blockchainAddress, asset, streamItemAsArray);
+	protected static String executeCreateRawSendFrom(String blockchainAddress, Map<String, Object> asset, Map<String, Object> streamItem) throws MultichainException {
+		if(asset == null || asset.isEmpty()) {
+			String streamItemAsJson = formatJson(streamItem);
+			String streamItemAsArray = "[" + streamItemAsJson +"]";
+			return execute(CommandEnum.CREATERAWSENDFROM, blockchainAddress, "{}", streamItemAsArray);
+		} else {
+			String assetItemAsJson = formatJson(asset);
+			return execute(CommandEnum.CREATERAWSENDFROM, blockchainAddress, assetItemAsJson);
+		}
+
 	}
 
 	/**
