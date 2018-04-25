@@ -498,9 +498,9 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 */
 	protected static String executeSendToAddress(String address, double amount) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		MultichainTestParameter.valueIsPositive("amount", amount);
+		MultichainTestParameter.isNotNull("amount", amount);
 
-		return execute(CommandEnum.SENDTOADDRESS, formatJson(address), formatJson(amount));
+		return execute(CommandEnum.SENDTOADDRESS, address, String.format("%.8f", amount));
 	}
 
 	/**
