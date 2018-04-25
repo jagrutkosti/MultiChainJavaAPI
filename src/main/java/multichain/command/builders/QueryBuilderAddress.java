@@ -112,7 +112,7 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 */
 	protected static String executeGetAddressBalances(String address) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		return execute(CommandEnum.GETADDRESSBALANCES, formatJson(address));
+		return execute(CommandEnum.GETADDRESSBALANCES, address);
 	}
 
 
